@@ -7,6 +7,15 @@ export type CardProps = {
 }
 
 export function Card(props : CardProps){
+    
+    function capitalizedActivityType(): string{
+        let firstLetter = (props.activityType)[0].toUpperCase();
+        let restOfWord = (props.activityType).slice(1,props.activityType.length);
+        let capitalizedActivityType = firstLetter + restOfWord;
+        return capitalizedActivityType;
+    }  
+
+
     return(
         <div className="activity-card">
             <div className="card-titles">
@@ -15,8 +24,8 @@ export function Card(props : CardProps){
                 <div>Participants:</div>  
             </div>
             <div className="card-data">
-                <div className="card-data-item"> {props.activityName} </div>
-                <div className="card-data-item"> {props.activityType} </div>
+                <div className="card-data-item"> {props.activityName + '.'} </div>
+                <div className="card-data-item"> {capitalizedActivityType()} </div>
                 <div className="card-data-item"> {props.participantsNumber} </div>
             </div>            
         </div>
