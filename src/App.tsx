@@ -5,6 +5,8 @@ import { Menu } from './components/Menu/Menu'
 import loadingGif from './assets/loading-gif.gif'
 import './Styles/app.sass'
 
+const INITIAL_AMOUNT_OF_CARDS = 3;
+
 type Activity = {
   activity: string;
   type: string;
@@ -17,6 +19,11 @@ type Activity = {
 
 function App() {
   const [activityList, setActivityList] = useState<Activity[]>([]);
+  
+
+  useEffect(()=>{
+    handleGenerateActivities(INITIAL_AMOUNT_OF_CARDS);
+  },[])
 
   function showLoadingAnimation(shouldShow: boolean){
     let loadingAnimation = document.getElementById('loadingAnimation') as HTMLImageElement;
@@ -41,19 +48,18 @@ function App() {
 
   async function fetchData() {
       const response = await fetch('https://www.boredapi.com/api/activity');
-      const data = await response.json() as Activity;
-      
+      const data = await response.json();
       return data;
   }
 
 
   return (
     <div className="App">
-      <Menu buttonClick={(amount: number) => handleGenerateActivities(amount)} />
+      <Menu buttonClick={(amount: number) => handleGenerateActivities(amount)} defaultAmountOfCards={INITIAL_AMOUNT_OF_CARDS}/>
       
       <div className="cards-container">
         <div className="cards-container-inner">
-           <img src={loadingGif} className='hide' id='loadingAnimation' />
+          <img src={loadingGif} className='hide' id='loadingAnimation' />
           {
             activityList.map( (activity, index) => (
               <Card 
