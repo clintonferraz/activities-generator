@@ -4,6 +4,7 @@ import { Card } from './components/Card/Card'
 import { Menu } from './components/Menu/Menu'
 import loadingGif from './assets/loading-gif.gif'
 import './Styles/app.sass'
+import axios from 'axios';
 
 const INITIAL_AMOUNT_OF_CARDS = 3;
 
@@ -47,8 +48,8 @@ function App() {
   }
 
   async function fetchData() {
-      const response = await fetch('https://www.boredapi.com/api/activity');
-      const data = await response.json() as Activity;
+      const response = await axios.get('https://www.boredapi.com/api/activity');
+      const data = response.data;
       return data;
   }
 
