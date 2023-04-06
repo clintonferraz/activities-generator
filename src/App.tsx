@@ -47,9 +47,7 @@ function App() {
   }
 
   async function fetchData() {
-      const response = await fetch('https://www.boredapi.com/api/activity');
-      const data = await response.json();
-      return data;
+      return (await fetch('https://www.boredapi.com/api/activity')).json();
   }
 
 
