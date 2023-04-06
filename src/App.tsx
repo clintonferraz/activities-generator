@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 import { Card } from './components/Card/Card'
 import { Menu } from './components/Menu/Menu'
@@ -47,28 +48,26 @@ function App() {
   }
 
   async function fetchData() {
-      const response = await fetch('https://www.boredapi.com/api/activity');
-      const data = await response.json();
-      return data;
+      return (await axios.get('https://www.boredapi.com/api/activity')).data;
   }
 
 
   return (
     <div className="App">
-      <Menu buttonClick={(amount: number) => handleGenerateActivities(amount)} defaultAmountOfCards={INITIAL_AMOUNT_OF_CARDS}/>
+      <Menu buttonClick={handleGenerateActivities} defaultAmountOfCards={INITIAL_AMOUNT_OF_CARDS}/>
       
       <div className="cards-container">
         <div className="cards-container-inner">
           <img src={loadingGif} className='hide' id='loadingAnimation' />
           {
-            activityList.map( (activity, index) => (
+            activityList.map( (activity, index) => 
               <Card 
                 key={index} 
                 activityName={activity.activity} 
                 activityType={activity.type} 
                 participantsNumber={activity.participants} 
               />
-            ))
+            )
           }
         </div>
       </div>
